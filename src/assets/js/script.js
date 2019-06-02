@@ -2,6 +2,13 @@ $(function() {
     // Establish socket connection
     var socket = io.connect('http://localhost:3000');
 
+    // Handle connection errors
+    socket.io.on('connect_error', (err) => {
+        console.warn('Error connecting to server.');
+        console.log(err);
+        socket.disconnect(true);
+    });
+    
     // Listen on 'msg-welcome'
     socket.on('msg-welcome', (data) => {
         console.log('Message received.');
